@@ -1,7 +1,7 @@
 #  python -m pytest -v --driver Chrome --driver-path C://chromedriver/chromedriver.exe tests/test_selenium_petfriends_2531.py
 
 import pytest
-from settings import valid_name, valid_email, valid_password
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -131,18 +131,16 @@ def test_show_my_pets():
         assert ages_my_pets[j].text != ''
 
     # Присутствуют все питомцы
-    assert count_my_pets == count_name, "ERROR: В статистике пользователя " \
-                                                      "и в таблице разное количество питомцев"
+    assert count_my_pets == count_name, "ERROR: В статистике пользователя и в таблице разное количество питомцев"
 
     # Хотя бы у половины питомцев есть фото
-    assert count_my_pets // 2 <= count_img, "ERROR: Фото есть менее, чем у " \
-                                                                              "половины питомцев"
+    assert count_my_pets // 2 < count_img, "ERROR: Фото есть менее, чем у половины питомцев"
 
     # У всех питомцев разные имена
     assert len(list_names) == len(set(list_names)), 'ERROR: Есть питомцы с повторяющимися именами'
 
     # В списке нет повторяющихся питомцев
-    assert len(list_my_pets) == len(unique_list_my_pets), 'ERROR: Есть не уникальный питомец'
+    assert len(list_my_pets) == len(unique_list_my_pets), 'ERROR: Есть повторяющиеся питомцы или питомец'
 
 
 
